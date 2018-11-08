@@ -9,7 +9,7 @@ spec:
     source:
       type: "Git"
       git:
-        uri: "https://github.com/efsavage/hello-world-war.git"
+        uri: "https://github.com/Cuball0/s2i-liberty.git"
         ref: "master"
     strategy:
       type: "JenkinsPipeline"

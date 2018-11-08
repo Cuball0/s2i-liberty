@@ -15,6 +15,9 @@ openshift.withCluster() {
   env.DEV = "${APP_NAME}-dev"
   env.STAGE = "${APP_NAME}-stage"
   env.PROD = "${APP_NAME}-prod"
+  env.https_proxy = "http://revproxytest.oz501.be:3128/"
+  env.http_proxy = "http://revproxytest.oz501.be:3128/"
+  env.HTTP_PROXY = "http://revproxytest.oz501.be:3128/"
 }
 
 pipeline {
