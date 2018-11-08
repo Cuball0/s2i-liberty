@@ -18,6 +18,7 @@ openshift.withCluster() {
   env.https_proxy = "http://revproxytest.oz501.be:3128/"
   env.http_proxy = "http://revproxytest.oz501.be:3128/"
   env.HTTP_PROXY = "http://revproxytest.oz501.be:3128/"
+  env.MAVEN_MIRROR_URL = "http://nexus.sdlc.gfdi.be/nexus/content/groups/mavenx"
 }
 
 pipeline {
