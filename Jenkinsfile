@@ -35,10 +35,12 @@ pipeline {
   // Requeres at least one stage
   stages {
 
-    stage("update maven mirror") {
+    stage('update maven mirror') {
+	steps {
                 sh "cat ~/.m2/settings.xml"
                 sh "sed -i 's|<!-- ### configured mirrors ### -->|<mirror><mirrorOf>*</mirrorOf><url>http://nexus.sdlc.gfdi.be/nexus/content/groups/mavenx</url><id>mirror</id></mirror>|' ~/.m2/settings.xml"
                 sh "cat ~/.m2/settings.xml"
+	}
     }
     // Checkout source code
     // This is required as Pipeline code is originally checkedout to
