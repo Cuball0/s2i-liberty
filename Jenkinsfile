@@ -83,12 +83,17 @@ pipeline {
         // Giving all the artifacts to OpenShift Binary Build
         // This places your artifacts into right location inside your S2I image
         // if the S2I image supports it.
-        binaryBuild(projectName: env.BUILD, buildConfigName: env.APP_NAME, artifactsDirectoryName: "oc-build")
+
+ 	echo " app name : ${APP_NAME}"
+       	echo " build : ${BUILD}"
+        binaryBuild(projectName: env.BUILD, buildConfigName: "s2i-liberty-example-war-binary", artifactsDirectoryName: "oc-build")
       }
     }
 
     stage('Promote from Build to Dev') {
       steps {
+       
+       
         tagImage(sourceImageName: env.APP_NAME, sourceImagePath: env.BUILD, toImagePath: env.DEV)
       }
     }
