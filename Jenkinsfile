@@ -86,7 +86,7 @@ pipeline {
 
  	echo " app name : ${APP_NAME}"
        	echo " build : ${BUILD}"
-        binaryBuild(projectName: env.BUILD, buildConfigName: "s2i-liberty-example-war-binary", artifactsDirectoryName: "oc-build")
+        binaryBuild(projectName: env.BUILD, buildConfigName: "s2i-liberty-binary-app", artifactsDirectoryName: "oc-build")
       }
     }
 
