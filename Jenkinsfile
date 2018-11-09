@@ -87,8 +87,13 @@ pipeline {
  	echo " app name : ${APP_NAME}"
        	echo " build : ${BUILD}"
 
+	script {
+		openshift.withCluster() { // Use "default" cluster or fallback to OpenShift cluster detection
+		    echo "Hello from the project running Jenkins: ${openshift.project()}"
+		}
+	}
 
-      sh "oc start-build s2i-liberty-binary-app --from-dir=./oc-build/ --wait --follow"
+   //   sh "oc start-build s2i-liberty-binary-app --from-dir=./oc-build/ --wait --follow"
 
   //      binaryBuild(projectName: env.BUILD, buildConfigName: "s2i-liberty-binary-app", artifactsDirectoryName: "oc-build")
       }
