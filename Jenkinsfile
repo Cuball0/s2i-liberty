@@ -1,10 +1,10 @@
-//library identifier: "pipeline-library@master",
-//retriever: modernSCM(
-//  [
-//    $class: "GitSCMSource",
-//    remote: "https://github.com/redhat-cop/pipeline-library.git"
-//  ]
-//)
+library identifier: "pipeline-library@master",
+retriever: modernSCM(
+  [
+    $class: "GitSCMSource",
+    remote: "https://github.com/redhat-cop/pipeline-library.git"
+  ]
+)
 
 openshift.withCluster() {
   env.NAMESPACE = openshift.project()
@@ -35,50 +35,50 @@ pipeline {
   // Requeres at least one stage
   stages {
 
-//    stage('update maven mirror') {
-//	steps {
-//                sh "cat ~/.m2/settings.xml"
-//                sh "sed -i 's|<!-- ### configured mirrors ### -->|<mirror><mirrorOf>*</mirrorOf><url>http://nexus.sdlc.gfdi.be/nexus/content/groups/mavenx</url><id>mirror</id></mirror>|' ~/.m2/settings.xml"
-//                sh "cat ~/.m2/settings.xml"
-//	}
-//    }
-//    // Checkout source code
-//    // This is required as Pipeline code is originally checkedout to
-//    // Jenkins Master but this will also pull this same code to this slave
-//    stage('Git Checkout') {
-//      steps {
-//        // Turn off Git's SSL cert check, uncomment if needed
-//        // sh 'git config --global http.sslVerify false'
-//        git url: "${APPLICATION_SOURCE_REPO}"
-//      }
-//    }
-//
-//    // Run Maven build, skipping tests
-//    stage('Build'){
-//      steps {
-//        sh "mvn clean install -DskipTests=true -f ${POM_FILE}"
-//      }
-//    }
-//
-//    // Run Maven unit tests
-//    stage('Unit Test'){
-//      steps {
-//        sh "mvn test -f ${POM_FILE}"
-//      }
-//    }
+    stage('update maven mirror') {
+	steps {
+                sh "cat ~/.m2/settings.xml"
+                sh "sed -i 's|<!-- ### configured mirrors ### -->|<mirror><mirrorOf>*</mirrorOf><url>http://nexus.sdlc.gfdi.be/nexus/content/groups/mavenx</url><id>mirror</id></mirror>|' ~/.m2/settings.xml"
+                sh "cat ~/.m2/settings.xml"
+	}
+    }
+    // Checkout source code
+    // This is required as Pipeline code is originally checkedout to
+    // Jenkins Master but this will also pull this same code to this slave
+    stage('Git Checkout') {
+      steps {
+        // Turn off Git's SSL cert check, uncomment if needed
+        // sh 'git config --global http.sslVerify false'
+        git url: "${APPLICATION_SOURCE_REPO}"
+      }
+    }
+
+    // Run Maven build, skipping tests
+    stage('Build'){
+      steps {
+        sh "mvn clean install -DskipTests=true -f ${POM_FILE}"
+      }
+    }
+
+    // Run Maven unit tests
+    stage('Unit Test'){
+      steps {
+        sh "mvn test -f ${POM_FILE}"
+      }
+    }
 
     // Build Container Image using the artifacts produced in previous stages
     stage('Build Container Image'){
       steps {
         // Copy the resulting artifacts into common directory
-//        sh """
-//          ls target/*
-//          rm -rf oc-build && mkdir -p oc-build/deployments
-//          for t in \$(echo "jar;war;ear" | tr ";" "\\n"); do
-//            cp -rfv ./target/*.\$t oc-build/deployments/ 2> /dev/null || echo "No \$t files"
-//          done
-//        """
-//
+        sh """
+          ls target/*
+          rm -rf oc-build && mkdir -p oc-build/deployments
+          for t in \$(echo "jar;war;ear" | tr ";" "\\n"); do
+            cp -rfv ./target/*.\$t oc-build/deployments/ 2> /dev/null || echo "No \$t files"
+          done
+        """
+
         // Build container image using local Openshift cluster
         // Giving all the artifacts to OpenShift Binary Build
         // This places your artifacts into right location inside your S2I image
