@@ -98,7 +98,7 @@ pipeline {
 		    saSelector.describe()
 
 		  openshift.selector( [ 'bc/s2i-liberty-binary-app'] ).describe()
-			//openshift.startBuild("s2i-liberty-binary-app --from-dir=./oc-build/")
+			openshift.startBuild("s2i-liberty-binary-app --from-dir=./oc-build/")
 		}
 	}
 
