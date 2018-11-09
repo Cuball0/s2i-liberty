@@ -86,7 +86,11 @@ pipeline {
 
  	echo " app name : ${APP_NAME}"
        	echo " build : ${BUILD}"
-        binaryBuild(projectName: env.BUILD, buildConfigName: "s2i-liberty-binary-app", artifactsDirectoryName: "oc-build")
+
+
+      sh "oc start-build s2i-liberty-binary-app --from-dir=./oc-build/ --wait --follow"
+
+  //      binaryBuild(projectName: env.BUILD, buildConfigName: "s2i-liberty-binary-app", artifactsDirectoryName: "oc-build")
       }
     }
 
