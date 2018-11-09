@@ -91,7 +91,14 @@ pipeline {
 		openshift.withCluster() { // Use "default" cluster or fallback to OpenShift cluster detection
 		    echo "Hello from the project running Jenkins: ${openshift.project()}"
 
-			openshift.startBuild("s2i-liberty-binary-app --from-dir=./oc-build/")
+		 // Create a Selector capable of selecting all service accounts in mycluster's default project
+		    def saSelector = openshift.selector( 'serviceaccount' )
+
+		    // Prints `oc describe serviceaccount` to Jenkins console
+		    saSelector.describe()
+
+		  openshift.selector( [ 'bc/s2i-liberty-binary-app'] ).describe()
+			//openshift.startBuild("s2i-liberty-binary-app --from-dir=./oc-build/")
 		}
 	}
 
