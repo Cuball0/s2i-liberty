@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ImageStream
+metadata:
+  
+  labels:
+    build: s2i-liberty-binary-app
+  name: s2i-liberty-binary-app
+  namespace: liberty
+spec:
+  lookupPolicy:
+    local: false

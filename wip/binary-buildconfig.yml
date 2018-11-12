@@ -1,0 +1,50 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  creationTimestamp: '2018-11-08T15:05:57Z'
+  labels:
+    app: s2i-liberty-example-war-binary
+  name: s2i-liberty-example-war-binary
+  namespace: s2i-liberty
+  resourceVersion: '25215'
+  selfLink: >-
+    /apis/build.openshift.io/v1/namespaces/s2i-liberty/buildconfigs/s2i-liberty-example-war
+  uid: cbba32a6-e367-11e8-a64f-52540029a6c4
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 's2i-liberty-example-war:latest'
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+      binary: {}
+      type: Binary
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: 's2i-liberty:latest'
+        namespace: s2i-liberty
+    type: Source
+  successfulBuildsHistoryLimit: 5
+  triggers:
+    - github:
+        secret: lmfV6mzALuiAO2gwl5gX
+      type: GitHub
+    - generic:
+        secret: U3Je99FDUE94F8Fv2Les
+      type: Generic
+    - type: ConfigChange
+    - imageChange:
+        lastTriggeredImageID: >-
+          172.30.1.1:5000/s2i-liberty/s2i-liberty@sha256:f83cbfbac160b0c21ae8dc594906871bd9eb7594b1a68b9c69049531423d7bb0
+      type: ImageChange
+status:
+  lastVersion: 1
+

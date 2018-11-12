@@ -43,6 +43,8 @@ USER 1001
 COPY ./placeholder.txt $WORKDIR/artifacts 
 COPY ./placeholder.txt $WORKDIR/config 
 
+COPY resources/ /opt/ibm/wlp/usr/shared/resources
+
 WORKDIR $WORKDIR
 
 EXPOSE $WLP_DEBUG_ADDRESS

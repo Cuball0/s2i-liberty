@@ -1,0 +1,45 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewBuild
+  creationTimestamp: '2018-11-08T14:47:02Z'
+  labels:
+    build: s2i-liberty-builder
+  name: s2i-liberty-builder
+  namespace: openshift
+
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 's2i-liberty:latest'
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    git:
+      uri: 'https://github.com/Cuball0/s2i-liberty.git'
+    type: Git
+  strategy:
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: 'liberty-server:release-1.0'
+    type: Docker
+  successfulBuildsHistoryLimit: 5
+  triggers:
+    - github:
+        secret: hMww6788F3CA4TEY6Ir2
+      type: GitHub
+    - generic:
+        secret: EWk3lFIAs4ETc78GeuvT
+      type: Generic
+    - type: ConfigChange
+    - imageChange:
+      type: ImageChange
+status:
+  lastVersion: 2
+
